@@ -1,0 +1,2 @@
+Ce dossier est rempli par le script scripts/extract_and_prepare_data.py.
+Lancer l'extraction depuis le dossier Modelisation pour générer les CSV ici.

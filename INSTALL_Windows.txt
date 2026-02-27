@@ -1,0 +1,29 @@
+========================================
+Installation / exécution sous WINDOWS
+========================================
+
+Prérequis : Python 3, PostgreSQL (psql dans le PATH).
+
+1. Ouvrir PowerShell ou CMD.
+2. Aller dans le dossier du projet :
+   cd "C:\Chemin\Vers\Mon projet"
+
+3. Extraire les données (obligatoire 5k) :
+   python scripts\extract_and_prepare_data.py data\mariages_L3_5k.csv
+
+4. Créer la base et importer (remplacer VOTRE_USER par votre utilisateur PostgreSQL) :
+   psql -U VOTRE_USER -d postgres -c "CREATE DATABASE mariages_bdd;"
+   psql -U VOTRE_USER -d mariages_bdd -f sql\01_schema_postgresql.sql
+   psql -U VOTRE_USER -d mariages_bdd -f sql\02_import_data.sql
+
+5. Lancer les 5 requêtes :
+   psql -U VOTRE_USER -d mariages_bdd -f sql\03_requetes_genealogistes.sql
+
+Alternative : utiliser pgAdmin pour exécuter les fichiers SQL (01 puis 02 puis 03).
+Pour l'import 02, si "permission denied" avec COPY, utiliser le fichier
+02_import_data_pgAdmin.sql en adaptant les chemins complets vers import_data\.
+
+Bonus : placer mariages_L3.csv dans data\, puis refaire l'étape 3 avec
+data\mariages_L3.csv, puis dans psql :
+  TRUNCATE acte, personne, commune, type_acte, departement RESTART IDENTITY CASCADE;
+Puis refaire les étapes 4 (seulement 02_import_data.sql) et 5.

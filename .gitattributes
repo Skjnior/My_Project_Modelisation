@@ -1,0 +1,2 @@
+# Forcer les fins de ligne LF pour les scripts (évite l'erreur ^M sous Linux/Mac)
+*.sh text eol=lf
